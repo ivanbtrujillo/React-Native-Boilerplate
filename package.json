@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "react": "15.1.0",
-    "react-native": "^0.28.0"
+    "react-native": "^0.28.0",
+    "axios": "^0.12.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-promise": "^0.5.3",
   },
   "devDependencies": {
-    "axios": "^0.12.0",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.0.4",
     "babel-preset-react-native": "^1.9.0",
@@ -30,9 +33,6 @@
     "mocha": "^2.5.3",
     "react-dom": "^15.1.0",
     "react-native-mock": "^0.2.3",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-promise": "^0.5.3",
     "sinon": "^1.17.4"
   }
 }
