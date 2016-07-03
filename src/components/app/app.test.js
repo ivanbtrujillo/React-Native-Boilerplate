@@ -19,7 +19,7 @@ describe('<App />', () => {
   });
 
   // Text
-  it('Should have one text component', () => {
+  it('Should have one Text component', () => {
     expect(wrapper.find(Text)).to.have.length(1);
   });
 
