@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  mainText: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
+// Router React-native Redux / Flux
+import { Scene, Router, Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+
+// Components
+import List from '../list/list';
+import Login from '../login/login';
+import Detail from '../detail/detail';
+
+// Connect Router with redux
+const RouterWithRedux = connect()(Router);
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.mainText}>
-          React Native Redux Boilerplate!
-        </Text>
-      </View>
+      <RouterWithRedux>
+        <Scene key="root">
+          <Scene key="login" component={Login} hideNavBar />
+        </Scene>
+        <Scene key="home" >
+          <Scene
+            key="list"
+            component={List}
+            title="List"
+            rightTitle="Detail"
+            onRight={() => Actions.detail()}
+          />
+          <Scene key="detail" component={Detail} title="Detail" />
+        </Scene>
+      </RouterWithRedux>
     );
   }
 }

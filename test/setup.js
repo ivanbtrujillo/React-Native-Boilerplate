@@ -3,6 +3,7 @@ import path from 'path';
 import register from 'babel-core/register';
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
+import mockery from "mockery";
 
 // Ignore all node_modules except these
 const modulesToCompile = [
@@ -40,3 +41,9 @@ const React = require('react-native')
 React.NavigationExperimental = {
   AnimatedView: React.View
 };
+
+mockery.enable({
+    warnOnReplace: false,
+    warnOnUnregistered: false
+});
+mockery.registerMock('react-native-router-flux', {Actions:{}});
