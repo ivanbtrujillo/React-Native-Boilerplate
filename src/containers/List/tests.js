@@ -1,11 +1,11 @@
 /* global define, it, describe, expect */
-import React, { View, Text } from 'react-native';
+import React, { View, Text, Image } from 'react-native';
 import { shallow } from 'enzyme';
-import Detail, { styles } from './detail';
+import List, { styles } from './index';
 
-describe('<Detail />', () => {
+describe('<List />', () => {
   const wrapper = shallow(
-    <Detail />
+    <List />
   );
 
   // Component
@@ -23,10 +23,15 @@ describe('<Detail />', () => {
     expect(wrapper.find(Text)).to.have.length(1);
   });
 
-  it('Text should be equal to A detail page', () => {
+  // Image
+  it('Should have one Image component', () => {
+    expect(wrapper.find(Image)).to.have.length(1);
+  });
+
+  it('Text should be equal to React Native Redux Boilerplate', () => {
     expect(wrapper.contains(
       <Text style={styles.mainText}>
-        A detail page
+        React Native Redux Boilerplate List!
       </Text>
     )).to.equal(true);
   });

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Navigator } from 'react-native';
 import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'orange',
   },
   mainText: {
     fontSize: 20,
@@ -17,12 +16,8 @@ export const styles = StyleSheet.create({
   },
 });
 
-function handleOnPress() {
-  // Update the state
-  Actions.home();
-}
-
 export default class Login extends Component {
+
   render() {
     return (
       <View style={styles.container}>
@@ -30,7 +25,7 @@ export default class Login extends Component {
           Welcome to ReactNativeBoilerplate
         </Text>
         <Button
-          onPress={handleOnPress}
+          onPress={() => this.props.navigator.push({ name: 'List', sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump})}
           containerStyle={{
             padding: 10,
             height: 45,
@@ -47,3 +42,8 @@ export default class Login extends Component {
     );
   }
 }
+
+// Props of the button
+Login.propTypes = {
+  navigator: React.PropTypes.object.isRequired,
+};

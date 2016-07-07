@@ -1,11 +1,12 @@
 /* global define, it, describe, expect */
-import React, { View, Text, Image } from 'react-native';
+import React, { View, Text } from 'react-native';
+import Button from 'react-native-button';
 import { shallow } from 'enzyme';
-import List, { styles } from './list';
+import Login, { styles } from './index';
 
-describe('<List />', () => {
+describe('<Login />', () => {
   const wrapper = shallow(
-    <List />
+    <Login />
   );
 
   // Component
@@ -23,15 +24,15 @@ describe('<List />', () => {
     expect(wrapper.find(Text)).to.have.length(1);
   });
 
-  // Image
-  it('Should have one Image component', () => {
-    expect(wrapper.find(Image)).to.have.length(1);
+  // Button
+  it('Should have one Button component', () => {
+    expect(wrapper.find(Button)).to.have.length(1);
   });
 
-  it('Text should be equal to React Native Redux Boilerplate', () => {
+  it('Text should be equal to Login screen', () => {
     expect(wrapper.contains(
       <Text style={styles.mainText}>
-        React Native Redux Boilerplate List!
+        Welcome to ReactNativeBoilerplate
       </Text>
     )).to.equal(true);
   });

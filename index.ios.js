@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native';
 import React, { Component } from 'react';
-import App from './src/components/app/app';
+import Navigation from './src/components/Navigation';
 import { Provider } from 'react-redux';
 
 // Redux utilities
@@ -18,7 +18,7 @@ class ReactNativeBoilerplate extends Component {
   render() {
     return (
       <Provider store={store}>
-        <App />
+        <Navigation />
       </Provider>
     );
   }
