@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ListView, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ListView,
+  TouchableHighlight, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchPost } from './actions';
 
@@ -9,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 64,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   mainText: {
     fontSize: 20,
@@ -20,28 +21,39 @@ export const styles = StyleSheet.create({
     width: 64,
     height: 64,
   },
-  row:{
+  row: {
     height: 60,
     padding: 20,
     borderBottomColor: '#9E7CE3',
     borderBottomWidth: 1,
-    width: Dimensions.get('window').width
-  }
+    width: Dimensions.get('window').width,
+  },
 });
 
 
-export default class List extends Component {
-  constructor(props){
-    super(props)
-    this.ds = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2});
+export class List extends Component {
+  constructor(props) {
+    super(props);
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
   }
 
   componentWillMount() {
     this.props.fetchPosts();
   }
 
-  handleOnPress(data){
-    this.props.navigator.push({name:'Detail', data:data})
+  handleOnPress(data) {
+    this.props.navigator.push({ name: 'Detail', data: data });
+  }
+
+  renderRow(rowData) {
+    return (
+      <TouchableHighlight
+        underlayColor="rgba(0,0,0,0)"
+        onPress={() => this.handleOnPress(rowData)} style={styles.row}
+      >
+        <Text style={styles.rowText}>{rowData.title}</Text>
+      </TouchableHighlight>
+    );
   }
 
   render() {
@@ -56,19 +68,18 @@ export default class List extends Component {
         />
         <ListView
           dataSource={this.ds.cloneWithRows(this.props.posts)}
-          enableEmptySections={true}
-          renderRow={(rowData) => {
-            return(
-              <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={() => this.handleOnPress(rowData)} style={styles.row}>
-                <Text style={styles.rowText}>{rowData.title}</Text>
-              </TouchableHighlight>
-            )
-          }}
+          renderRow={(rowData) => this.renderRow(rowData)}
         />
       </View>
     );
   }
 }
+
+List.propTypes = {
+  fetchPosts: React.PropTypes.func.isRequired,
+  navigator: React.PropTypes.object,
+  posts: React.PropTypes.object,
+};
 
 function mapStateToProps(state) {
   return { posts: state.posts.all };

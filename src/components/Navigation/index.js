@@ -8,6 +8,40 @@ import Login from '../Login';
 import List from '../../containers/List';
 import Detail from '../../containers/Detail';
 
+const styles = StyleSheet.create({
+  navContainer: {
+    flex: 1,
+  },
+  navBar: {
+    borderBottomWidth: 1,
+    backgroundColor: 'white',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  navBarTitleText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '500',
+    marginVertical: 9,  // iOS
+  // marginVertical: 16 // Android
+  },
+  navBarLeftButton: {
+    paddingLeft: 10,
+  },
+  navBarRightButton: {
+    paddingRight: 10,
+  },
+  navBarButtonText: {
+    color: '#EEE',
+    fontSize: 16,
+    marginVertical: 10, // iOS
+  // marginVertical: 16 // Android
+  },
+});
+
 // Navigation bar configuration
 const NavigationBarRouteMapper = {
   LeftButton: function (route, navigator, index) {
@@ -27,41 +61,43 @@ const NavigationBarRouteMapper = {
       </TouchableHighlight>
     );
   },
-  RightButton: function (route, navigator, index) {
+  RightButton: function () {
     return null;
   },
-  Title: function (route, navigator, index) {
-		//Title hidden for Login view
-    if(route.name == 'Login'){
+  Title: function (route) {
+		// Title hidden for Login view
+    if (route.name === 'Login') {
       return null;
     }
-    return(
-      <Text style={{marginTop: 10, color:'#007AFF' }}>
+    return (
+      <Text style={{ marginTop: 10, color: '#007AFF' }}>
         {route.name}
       </Text>
-    )
+    );
   },
 };
 
 
 export default class Navigation extends Component {
 
-	//Mostramos una vista u otra en funcion del nombre de la ruta
-  renderScene (route, navigator) {
+	// Mostramos una vista u otra en funcion del nombre de la ruta
+  renderScene(route, navigator) {
     switch (route.name) {
-			case 'Login':
-      	return (
-           <Login navigator={navigator} route={route} />
+      case 'Login':
+        return (
+          <Login navigator={navigator} route={route} />
         );
-       	case 'List':
-         	return (
-       	 		<List navigator={navigator} route={route}/>
-         	);
-      	case 'Detail':
-      		return (
-        		<Detail navigator={navigator} route={route} data={route.data} />
+      case 'List':
+        return (
+          <List navigator={navigator} route={route} />
         );
-     }
+      case 'Detail':
+        return (
+          <Detail navigator={navigator} route={route} data={route.data} />
+        );
+      default:
+        return null;
+    }
   }
 
 	// Where components are displayed
@@ -70,55 +106,21 @@ export default class Navigation extends Component {
       <Navigator
         initialRoute={{
           name: 'Login',
-          display: false
+          display: false,
         }}
         renderScene={this.renderScene}
         configureScene={(route) => {
-            if (route.sceneConfig) {
-              return route.sceneConfig;
-            }
-            return Navigator.SceneConfigs.FloatFromRight;
-          }}
+          if (route.sceneConfig) {
+            return route.sceneConfig;
+          }
+          return Navigator.SceneConfigs.FloatFromRight;
+        }}
         navigationBar={
-        <NavigationBar
-          routeMapper={NavigationBarRouteMapper}
-          style={styles.navBar}
-        /> }
+          <NavigationBar
+            routeMapper={NavigationBarRouteMapper}
+            style={styles.navBar}
+          />}
       />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  navContainer: {
-    flex:1,
-  },
-  navBar:{
-    borderBottomWidth:1,
-    backgroundColor: 'white',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  navBarTitleText: {
-     color: 'white',
-     fontSize: 16,
-     fontWeight: '500',
-     marginVertical: 9  // iOS
-  // marginVertical: 16 // Android
-   },
-   navBarLeftButton: {
-     paddingLeft: 10
-   },
-   navBarRightButton: {
-     paddingRight: 10
-   },
-   navBarButtonText: {
-     color: '#EEE',
-     fontSize: 16,
-     marginVertical: 10 // iOS
-  // marginVertical: 16 // Android
-   }
-});

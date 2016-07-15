@@ -25,7 +25,11 @@ export default class Login extends Component {
           Welcome to ReactNativeBoilerplate
         </Text>
         <Button
-          onPress={() => this.props.navigator.push({ name: 'List', sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump})}
+          onPress={() =>
+            this.props.navigator.push({
+              name: 'List',
+              sceneConfig: Navigator.SceneConfigs.VerticalDownSwipeJump,
+            })}
           containerStyle={{
             padding: 10,
             height: 45,
@@ -43,7 +47,8 @@ export default class Login extends Component {
   }
 }
 
-// Props of the button
+// Proptypes
 Login.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
+  navigator: React.PropTypes.object,
+  route: React.PropTypes.object,
 };

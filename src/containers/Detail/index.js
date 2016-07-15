@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import { fetchPost, deletePost } from './actions';
 
 export const styles = StyleSheet.create({
@@ -19,24 +18,24 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default class Detail extends Component {
+export class Detail extends Component {
   componentWillMount() {
     this.props.fetchPost(this.props.data.id);
   }
 
   render() {
-    if(!this.props.post){
-      return(
+    if (!this.props.post) {
+      return (
         <View style={styles.container}>
           <Text style={styles.mainText}>
             Loading ...
           </Text>
         </View>
-      )
-    } else {
-      return (
-        <View style={styles.container}>
-          <View style={{flex:1, flexDirection:'column', justifyContent: 'center'}}>
+      );
+    }
+    return (
+      <View style={styles.container}>
+        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
           <Text style={styles.mainText}>
             A detail page
           </Text>
@@ -51,19 +50,24 @@ export default class Detail extends Component {
             }}
             style={{ fontSize: 20, color: 'white' }}
           >
-              Delete
+            Delete
           </Button>
           <Text style={styles.mainText}>{this.props.post.title}</Text>
-          </View>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-            <Text>{this.props.post.categories}</Text>
-            <Text>{this.props.post.content}</Text>
-          </View>
         </View>
-      );
-    }
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+          <Text>{this.props.post.categories}</Text>
+          <Text>{this.props.post.content}</Text>
+        </View>
+      </View>
+    );
   }
 }
+
+Detail.propTypes = {
+  fetchPost: React.propTypes.func.isRequired,
+  data: React.PropTypes.object.isRequired,
+  post: React.PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
   return { post: state.post.post };
