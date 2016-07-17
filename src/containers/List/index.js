@@ -78,7 +78,7 @@ export class List extends Component {
 List.propTypes = {
   fetchPosts: React.PropTypes.func.isRequired,
   navigator: React.PropTypes.object,
-  posts: React.PropTypes.object,
+  posts: React.PropTypes.array,
 };
 
 function mapStateToProps(state) {

@@ -64,9 +64,8 @@ export class Detail extends Component {
 }
 
 Detail.propTypes = {
-  fetchPost: React.propTypes.func.isRequired,
+  fetchPost: React.PropTypes.func.isRequired,
   data: React.PropTypes.object.isRequired,
-  post: React.PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

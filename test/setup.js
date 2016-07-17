@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import register from 'babel-core/register';
 import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+
 import chaiEnzyme from 'chai-enzyme';
 import mockery from "mockery";
 
@@ -33,7 +35,10 @@ register(config);
 // Setup globals / chai
 global.__DEV__ = true;
 global.expect = chai.expect;
+global.assert = chai.assert;
+
 chai.use(chaiEnzyme());
+chai.use(chaiAsPromised);
 
 // Setup mocks
 require('react-native-mock/mock');

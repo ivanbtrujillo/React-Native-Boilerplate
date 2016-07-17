@@ -1,4 +1,4 @@
-/* global define, it, describe, expect */
+/* global define, it, describe, expect, assert */
 import React, { View, Text, Image } from 'react-native';
 import { shallow } from 'enzyme';
 import { List, styles } from './index';
@@ -44,55 +44,46 @@ describe('<List />', () => {
 
 // Actions test
 import { fetchPosts, fetchPost, types } from './actions';
-import axios from 'axios';
+import supertest from 'supertest';
+import async from 'async';
 
 const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=loquesea';
 
+const api = supertest(ROOT_URL);
+
 describe('List actions', () => {
-  it('Should create an action to fetch all posts', () => {
-    axios.get(`${ROOT_URL}/posts${API_KEY}`).then((request) => {
-      const expectedAction = {
-        type: types.FETCH_POSTS,
-        payload: request,
-      };
-      expect(fetchPosts()).toEqual(expectedAction);
-    });
+  let id;
+  it('Should create an action to fetch all posts', (done) => {
+      api.get(`/posts${API_KEY}`)
+        .expect(200)
+        .end(function(err, response){
+          // ID for single post request (next case)
+          id = response.body[0].id;
+
+          let promise = Promise.resolve(fetchPosts());
+          expect(promise).to.eventually.have.property('type')
+            .to.equal('FETCH_POSTS')
+          expect(promise).to.eventually.have.property('payload')
+            .to.be.an('object').notify(done);
+        });
   });
-  it('Should create an action to fetch a post', () => {
-    axios.get(`${ROOT_URL}/posts/3${API_KEY}`).then((request) => {
-      const expectedAction = {
-        type: types.FETCH_POST,
-        payload: request,
-      };
-      expect(fetchPost(3)).toEqual(expectedAction);
-    });
+  it('Should create an action to fetch a post', (done) => {
+    let promise = Promise.resolve(fetchPost(id));
+    expect(promise).to.eventually.have.property('type').to.equal('FETCH_POST')
+    expect(promise).to.eventually.have.property('payload')
+      .to.be.an('object').to.have.property('data')
+      .to.be.an('object').to.have.property('title').notify(done);
   });
 });
 
 // Reducer test
-// import reducer from './reducers';
-// describe('List reducer', () => {
-//   it('Should return the initial state', () => {
-//     expect(
-//       reducer(undefined, {})
-//     ).toEqual({ all: [] })
-//   });
+import { reducer } from './reducers';
 
-  // it('Should handle FETCH_POSTS', () => {
-  //   expect(
-  //     axios.get(`${ROOT_URL}/posts/3${API_KEY}`).then((request) => {
-  //       reducer([], {
-  //         type: types.FETCH_POST,
-  //         payload: request,
-  //       })
-  //     })
-  //   ).toEqual(
-  //     [
-  //       {
-  //         payload: { ...state, all: action.payload.data },
-  //       }
-  //     ]
-  //   )
-  // })
+describe('List reducer', () => {
+
+  it('Should return the initial state (Chai.expect) ', () => {
+    const initialstate = reducer(undefined, {});
+    expect(initialstate).to.be.an('object').to.have.property('all').that.is.an('array').to.eql([]);
+  });
 });
