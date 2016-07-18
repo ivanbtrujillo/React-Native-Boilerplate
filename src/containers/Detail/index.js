@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from 'react-native-button';
 import { connect } from 'react-redux';
 import { fetchPost, deletePost } from './actions';
 
@@ -39,19 +38,6 @@ export class Detail extends Component {
           <Text style={styles.mainText}>
             A detail page
           </Text>
-          <Button
-            containerStyle={{
-              padding: 10,
-              height: 45,
-              width: 120,
-              overflow: 'hidden',
-              borderRadius: 4,
-              backgroundColor: 'blue',
-            }}
-            style={{ fontSize: 20, color: 'white' }}
-          >
-            Delete
-          </Button>
           <Text style={styles.mainText}>{this.props.post.title}</Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
@@ -66,6 +52,7 @@ export class Detail extends Component {
 Detail.propTypes = {
   fetchPost: React.PropTypes.func.isRequired,
   data: React.PropTypes.object.isRequired,
+  post: React.PropTypes.object,
 };
 
 function mapStateToProps(state) {

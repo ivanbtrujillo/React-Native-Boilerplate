@@ -43,47 +43,67 @@ describe('<List />', () => {
 
 
 // Actions test
-import { fetchPosts, fetchPost, types } from './actions';
-import supertest from 'supertest';
-import async from 'async';
-
-const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
-const API_KEY = '?key=loquesea';
-
-const api = supertest(ROOT_URL);
+import { fetchPosts, types } from './actions';
 
 describe('List actions', () => {
-  let id;
-  it('Should create an action to fetch all posts', (done) => {
-      api.get(`/posts${API_KEY}`)
-        .expect(200)
-        .end(function(err, response){
-          // ID for single post request (next case)
-          id = response.body[0].id;
+  it('Should create an action to get all items', (done) => {
+    expect(Promise.resolve(fetchPosts()))
+      .to.eventually.have.property('type')
+      .to.equal(types.FETCH_LIST).notify(done);
+  });
 
-          let promise = Promise.resolve(fetchPosts());
-          expect(promise).to.eventually.have.property('type')
-            .to.equal('FETCH_POSTS')
-          expect(promise).to.eventually.have.property('payload')
-            .to.be.an('object').notify(done);
-        });
-  });
-  it('Should create an action to fetch a post', (done) => {
-    let promise = Promise.resolve(fetchPost(id));
-    expect(promise).to.eventually.have.property('type').to.equal('FETCH_POST')
-    expect(promise).to.eventually.have.property('payload')
-      .to.be.an('object').to.have.property('data')
-      .to.be.an('object').to.have.property('title').notify(done);
-  });
+  // it('Should create an action to get a single item', (done) => {
+  //   expect(Promise.resolve(fetchPost(1))).
+  //   to.eventually.have.property('type').to.equal(types.FETCH_ITEM).notify(done);
+  // });
 });
 
 // Reducer test
 import { reducer } from './reducers';
 
 describe('List reducer', () => {
-
   it('Should return the initial state (Chai.expect) ', () => {
     const initialstate = reducer(undefined, {});
     expect(initialstate).to.be.an('object').to.have.property('all').that.is.an('array').to.eql([]);
+  });
+
+  it('Should mutate the state', (done) => {
+    expect(
+       reducer([], {
+         type: types.FETCH_LIST,
+         payload: {
+           data: [
+             {
+               userId: 1,
+               id: 1,
+               title: 'Titulo 1',
+               body: 'Contenido 1',
+             },
+             {
+               userId: 1,
+               id: 2,
+               title: 'Titulo 2',
+               body: 'Contenido 2',
+             },
+           ],
+         },
+       })
+     ).to.eql({
+       all: [
+         {
+           userId: 1,
+           id: 1,
+           title: 'Titulo 1',
+           body: 'Contenido 1',
+         },
+         {
+           userId: 1,
+           id: 2,
+           title: 'Titulo 2',
+           body: 'Contenido 2',
+         },
+       ],
+     });
+    done();
   });
 });

@@ -69,6 +69,7 @@ export class List extends Component {
         <ListView
           dataSource={this.ds.cloneWithRows(this.props.posts)}
           renderRow={(rowData) => this.renderRow(rowData)}
+          enableEmptySections
         />
       </View>
     );
