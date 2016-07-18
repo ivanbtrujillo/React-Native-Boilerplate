@@ -36,16 +36,11 @@ npm run check
 To comunicate with APIs from our app, i've added the Axios library, that allow me make request easily.
 
 ## State management
-I use Redux and Redux promises to manage the state throught my app, mutating it using actions and reducers.
-
-## Router
-React-Native-Router-Flux is integrated with Redux in this project.
+I use Redux and Redux-promises to manage the state throught my app, mutating it using actions and reducers.
 
 ## More to come:
 To extends the functionality of this boilerplate, i will make some usefull components in other repositories that will be easy to integrate with our app.
 
-* Example of update state and read state
-* A better folder structure
 * Google maps component
 * AsyncStorage example
 * Social Login component using Oauth
