@@ -47,15 +47,12 @@ import { fetchPosts, types } from './actions';
 
 describe('List actions', () => {
   it('Should create an action to get all items', (done) => {
-    expect(Promise.resolve(fetchPosts()))
-      .to.eventually.have.property('type')
-      .to.equal(types.FETCH_LIST).notify(done);
+    const apiPromise = fetchPosts();
+    expect(apiPromise).to.have.property('type').to.equal(types.FETCH_LIST);
+    expect(Promise.resolve(apiPromise.payload)).to.eventually.have.property('data')
+    .that.is.an('array').with.deep.property('[0]')
+    .to.include.keys(['id', 'title', 'body']).notify(done);
   });
-
-  // it('Should create an action to get a single item', (done) => {
-  //   expect(Promise.resolve(fetchPost(1))).
-  //   to.eventually.have.property('type').to.equal(types.FETCH_ITEM).notify(done);
-  // });
 });
 
 // Reducer test

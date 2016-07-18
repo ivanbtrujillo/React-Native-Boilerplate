@@ -84,9 +84,10 @@ import { fetchPost, types } from './actions';
 
 describe('Detail actions', () => {
   it('Should create an action to get an items', (done) => {
-    expect(Promise.resolve(fetchPost(1)))
-      .to.eventually.have.property('type')
-      .to.equal(types.FETCH_ITEM).notify(done);
+    const apiPromise = fetchPost(1);
+    expect(apiPromise).to.have.property('type').to.equal(types.FETCH_ITEM);
+    expect(Promise.resolve(apiPromise.payload)).to.eventually.have.property('data')
+    .that.is.an('object').to.include.keys(['id', 'title', 'body']).notify(done);
   });
 });
 
