@@ -3,6 +3,12 @@
 This project is a boilerplate of a React-Native Project, with 38 test passed (Containers, Components, Actions and Reducers). All the code has been linted using ESLint + Airbnb style.
 I've added a custom folder structure to make containers and components more reusable.
 
+### IOS
+![alt tag](https://raw.githubusercontent.com/ivanbtrujillo/React-Native-Boilerplate/master/ios.gif)
+
+### Android
+![alt tag](https://raw.githubusercontent.com/ivanbtrujillo/React-Native-Boilerplate/master/android.gif)
+
 Is an extension of the oficial React Native starter project, those that we generate using react-native-cli and typing:
 
 ```
@@ -25,11 +31,16 @@ To run test:
 npm run test
 ```
 
+![alt tag](https://raw.githubusercontent.com/ivanbtrujillo/React-Native-Boilerplate/master/test.gif)
+
+
 ## Linting
 EsLint + eslint-plugin-react + eslint-plugin-react-native + eslint-config-airbnb are the packages that i've used to make sure that i've writed a clean code in my project. To execute the linter, run:
 ```
 npm run linter
 ```
+
+![alt tag](https://raw.githubusercontent.com/ivanbtrujillo/React-Native-Boilerplate/master/lint.gif)
 
 To check our project (linter + testing), run:
 ```
