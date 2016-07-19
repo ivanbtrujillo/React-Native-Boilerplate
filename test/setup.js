@@ -3,7 +3,7 @@ import path from 'path';
 import register from 'babel-core/register';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-
+import dirtyChai from 'dirty-chai';
 import chaiEnzyme from 'chai-enzyme';
 import mockery from "mockery";
 
@@ -39,6 +39,7 @@ global.assert = chai.assert;
 
 chai.use(chaiEnzyme());
 chai.use(chaiAsPromised);
+chai.use(dirtyChai);
 
 // Setup mocks
 require('react-native-mock/mock');

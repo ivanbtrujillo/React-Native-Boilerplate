@@ -23,7 +23,7 @@ export class Detail extends Component {
   }
 
   render() {
-    if (!this.props.post) {
+    if (!this.props.post || this.props.post.id !== this.props.data.id) {
       return (
         <View style={styles.container}>
           <Text style={styles.mainText}>
@@ -35,14 +35,8 @@ export class Detail extends Component {
     return (
       <View style={styles.container}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
-          <Text style={styles.mainText}>
-            A detail page
-          </Text>
           <Text style={styles.mainText}>{this.props.post.title}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-          <Text>{this.props.post.categories}</Text>
-          <Text>{this.props.post.content}</Text>
+          <Text>{this.props.post.body}</Text>
         </View>
       </View>
     );

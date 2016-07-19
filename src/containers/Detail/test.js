@@ -40,7 +40,9 @@ describe('<Detail without post />', () => {
 
 const propsWithData = {
   fetchPost: function () {},
-  data: {},
+  data: {
+    id: 1,
+  },
   post: {
     userId: 1,
     id: 1,
@@ -60,20 +62,26 @@ describe('<Detail with post />', () => {
   });
 
   // View
-  it('Should have three View component', () => {
-    expect(wrapper.find(View)).to.have.length(3);
+  it('Should have two View component', () => {
+    expect(wrapper.find(View)).to.have.length(2);
   });
 
   // Text
-  it('Should have four Text component', () => {
-    expect(wrapper.find(Text)).to.have.length(4);
+  it('Should have two Text component', () => {
+    expect(wrapper.find(Text)).to.have.length(2);
   });
 
-
-  it('Text should be equal to React Native Redux Boilerplate List!', () => {
+  it('Post title should be rendered inside a Text', () => {
     expect(wrapper.contains(
       <Text style={styles.mainText}>
-        A detail page
+        Titulo 1
+      </Text>
+    )).to.equal(true);
+  });
+  it('Post body should be rendered inside a Text', () => {
+    expect(wrapper.contains(
+      <Text>
+        Contenido 1
       </Text>
     )).to.equal(true);
   });

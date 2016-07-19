@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Navigator, TouchableHighlight, Text, StyleSheet } from 'react-native';
-import NavigationBar from '../NavigationBar';
 // Components
 import Login from '../Login';
 
@@ -40,12 +39,16 @@ const styles = StyleSheet.create({
     marginVertical: 10, // iOS
   // marginVertical: 16 // Android
   },
+  title: {
+    marginTop: 10,
+    color: '#007AFF',
+  },
 });
 
 // Navigation bar configuration
-const NavigationBarRouteMapper = {
+export const NavigationBarRouteMapper = {
   LeftButton: function (route, navigator, index) {
-    if (route.name === 'Login') {
+    if (route.name === 'Login' || route.name === 'List') {
       return null;
     }
     return (
@@ -70,7 +73,7 @@ const NavigationBarRouteMapper = {
       return null;
     }
     return (
-      <Text style={{ marginTop: 10, color: '#007AFF' }}>
+      <Text style={styles.title}>
         {route.name}
       </Text>
     );
@@ -100,7 +103,6 @@ export default class Navigation extends Component {
     }
   }
 
-	// Where components are displayed
   render() {
     return (
       <Navigator
@@ -122,5 +124,16 @@ export default class Navigation extends Component {
           />}
       />
     );
+  }
+}
+
+class NavigationBar extends Navigator.NavigationBar {
+  render() {
+    const routes = this.props.navState.routeStack;
+    const route = routes[routes.length - 1];
+    if (route.display === false) {
+      return null;
+    }
+    return super.render();
   }
 }

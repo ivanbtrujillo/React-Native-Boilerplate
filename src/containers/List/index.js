@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ListView,
-  TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchPost } from './actions';
+import ListRow from '../../components/ListRow';
 
 export const styles = StyleSheet.create({
   container: {
@@ -21,13 +21,6 @@ export const styles = StyleSheet.create({
     width: 64,
     height: 64,
   },
-  row: {
-    height: 60,
-    padding: 20,
-    borderBottomColor: '#9E7CE3',
-    borderBottomWidth: 1,
-    width: Dimensions.get('window').width,
-  },
 });
 
 
@@ -41,18 +34,9 @@ export class List extends Component {
     this.props.fetchPosts();
   }
 
-  handleOnPress(data) {
-    this.props.navigator.push({ name: 'Detail', data: data });
-  }
-
   renderRow(rowData) {
     return (
-      <TouchableHighlight
-        underlayColor="rgba(0,0,0,0)"
-        onPress={() => this.handleOnPress(rowData)} style={styles.row}
-      >
-        <Text style={styles.rowText}>{rowData.title}</Text>
-      </TouchableHighlight>
+      <ListRow rowData={rowData} navigator={this.props.navigator} />
     );
   }
 
