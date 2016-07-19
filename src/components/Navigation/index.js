@@ -4,8 +4,8 @@ import { Navigator, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import Login from '../Login';
 
 // Containers
-import List from '../../containers/List';
-import Detail from '../../containers/Detail';
+import ListContainer from '../../containers/ListContainer';
+import DetailContainer from '../../containers/DetailContainer';
 
 const styles = StyleSheet.create({
   navContainer: {
@@ -92,11 +92,11 @@ export default class Navigation extends Component {
         );
       case 'List':
         return (
-          <List navigator={navigator} route={route} />
+          <ListContainer navigator={navigator} route={route} />
         );
       case 'Detail':
         return (
-          <Detail navigator={navigator} route={route} data={route.data} />
+          <DetailContainer navigator={navigator} route={route} data={route.data} />
         );
       default:
         return null;

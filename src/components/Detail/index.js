@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { fetchPost, deletePost } from './actions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,10 +15,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-export class Detail extends Component {
-  componentWillMount() {
-    this.props.fetchPost(this.props.data.id);
-  }
+export default class Detail extends Component {
 
   render() {
     if (!this.props.post || this.props.post.id !== this.props.data.id) {
@@ -44,13 +39,6 @@ export class Detail extends Component {
 }
 
 Detail.propTypes = {
-  fetchPost: React.PropTypes.func.isRequired,
   data: React.PropTypes.object.isRequired,
   post: React.PropTypes.object,
 };
-
-function mapStateToProps(state) {
-  return { post: state.post.post };
-}
-
-export default connect(mapStateToProps, { fetchPost, deletePost })(Detail);

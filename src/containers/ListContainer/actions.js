@@ -13,12 +13,3 @@ export function fetchPosts() {
     payload: request,
   };
 }
-
-// export function fetchPost(id) {
-//   const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
-//
-//   return {
-//     type: types.FETCH_DETAIL,
-//     payload: request,
-//   };
-// }

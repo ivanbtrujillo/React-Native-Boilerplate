@@ -1,46 +1,4 @@
 /* global define, it, describe, expect, assert */
-import React, { View, Text, Image } from 'react-native';
-import { shallow } from 'enzyme';
-import { List, styles } from './index';
-
-const props = {
-  fetchPosts: function () {},
-};
-
-// Container test
-describe('<List />', () => {
-  const wrapper = shallow(
-    <List {...props} />
-  );
-
-  it('Should render', () => {
-    expect(wrapper.length).to.equal(1);
-  });
-
-  // View
-  it('Should have one View component', () => {
-    expect(wrapper.find(View)).to.have.length(1);
-  });
-
-  // Text
-  it('Should have one Text component', () => {
-    expect(wrapper.find(Text)).to.have.length(1);
-  });
-
-  // Image
-  it('Should have one Image component', () => {
-    expect(wrapper.find(Image)).to.have.length(1);
-  });
-
-  it('Text should be equal to React Native Redux Boilerplate List!', () => {
-    expect(wrapper.contains(
-      <Text style={styles.mainText}>
-        React Native Redux Boilerplate List!
-      </Text>
-    )).to.equal(true);
-  });
-});
-
 
 // Actions test
 import { fetchPosts, types } from './actions';
